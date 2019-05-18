@@ -1,1 +1,15 @@
 <h1>Hello from Demo</h1>
+
+<%= link_to("Visit the hello page", { action: 'hello' }) %>
+
+<hr>
+
+<p>New Link with Parameters</p>
+<%= link_to('Link with Params', { action: 'hello', page: 5, id: 10 }) %>
+
+<hr>
+
+<p>Multiple Param Links</p>
+<% @id_values.each do |id| %>
+  <%= link_to("Link # #{id}", { action: 'hello', page: id }) %><br>
+<% end %>

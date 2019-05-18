@@ -1,0 +1,32 @@
+<h1>Greetings from hello page.</h1>
+
+<%= link_to("visit the home page", { controller: 'demo', action: 'index' }) %>
+
+<hr>
+
+<!-- Don't need controller defined in the hash if it's the same controller -->
+<%= link_to("Another way to get to the home page", { action: 'index' } ) %>
+
+<hr>
+
+<ol>
+  <% 10.times do |n| %>
+    <li><%= "howdy! -> #{n}" %></li>
+  <% end %>
+</ol>
+
+<hr>
+
+<ul>
+  <% @array.each do |item| %>
+    <li><%= "#{item.capitalize}" %></li>
+  <% end %>
+</ul>
+
+<hr>
+
+ID: <%= @id %><br>
+ID: <%= params[:id] %><br>
+Page: <%= @page %><br>
+<!-- parameters always come in as strings -->
+Next Page: <%= @page.to_i + 1 %>
