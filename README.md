@@ -42,3 +42,83 @@ Always put indexes on foreign keys
 **Schema** - structural definition of a database
 
 **CRUD** - Create, Read, Update, Delete -> essential database interactions
+
+### Migrations
+
+migrations describe database changes from one state to another
+
+- can move "up" and "back down" using instructions
+
+- keeps database schema with application code
+
+- executable and repeatable
+
+- allows sharing schema changes
+
+- written in ruby instead of SQL
+
+Can be generated with `rails g migration DoSomethingNow`
+
+Created with generating models too
+
+`t.column "first_name", :string` or `t.string :last_name`
+
+Table Column Types:
+
+- binary
+- boolean
+- date
+- datetime
+- decimal
+- float
+- integer
+- string
+- text
+- time
+
+and options
+
+- limit: size
+- default: value
+- null: true/false
+- precision: number
+- scale: number
+
+rows managed automatically
+
+- t.datetime :created_at
+- t.datetime :updated_at
+  same as:
+- t.timestamps
+
+primary key is automatically added by rails - id column
+
+commands:
+
+- `rails db:migrate`
+- `rails db:migrate VERSION=0`
+- `rails db:migrate VERSION=20190518154431`
+- `rails db:migrate:status`
+- `rails db:migrate:up VERSION=20190518154431`
+- `rails db:migrate:down VERSION=20190518154431`
+- `rails db:migrate:redo VERSION=20190518154431`
+
+### Migration Methods
+
+**table**
+create_table(table)
+drop_table(table)
+rename_table(table, new_name)
+
+**column**
+add_column(table, column, type, options)
+remove_column(table, column)
+rename_column(table, column, new_name)
+change_column(table, column, type, options)
+
+**index migration methods**
+add_index(table, column, options)
+remove_index(table, column)
+options:
+unique: true/false
+name: "custom_name"
