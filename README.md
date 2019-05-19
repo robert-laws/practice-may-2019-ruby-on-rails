@@ -198,3 +198,57 @@ problem_subject = Subject.create({name: "Bad Subject"})
 subject = Subject.find(3)
 subject.destroy # removes from database, ruby object still remains as a frozen hash
 ```
+
+### Searching Records
+
+- Subject.find(2) -> returns object or returns a "RecordNotFound" error
+- Subject.find_by_id(5) -> returns object or nil
+- Subject.find_by_name("item name") -> returns object or nil
+- Subject.all -> return an array of objects
+- Subject.first -> return object or nil
+- Subject.last -> return object or nil
+
+### Query Methods: Conditions
+
+- where(conditions) -> `Subject.where(visible: true)`
+- can use a string, array, hash
+
+**Array**
+example: `["name=? AND visible=true", "Test"] -> Rails will insert value in for ?`
+
+**Hash**
+example: `(name: "Test", visible: true)`
+
+Can chain together queries: `Subject.where(visible: true).where(position: 2)`
+
+### More Complex Queries - Order, Limit, Offset
+
+- order(string) -> order(:name) = ascending order
+- example order(name: :asc) or (name: :desc)
+- limit(integer)
+- offset(integer)
+
+Disambiguation
+`order("subjects.created_at ASC")`
+
+### Named Scopes
+
+- Queries defined in a model
+- Defined using ActiveRelation query methods
+- Can be called like ActiveRelation methods
+- can accept Parameters
+- Rails 5 requires lambda syntax - evaluated when called, not when defined
+
+```ruby
+scope :active, lambda { where(active: true)}
+scope :active, -> { where(active: true)}
+def self.active
+  where(active: true)
+end
+ClassName.active
+
+scope :with_content_type, lambda{|ctype|
+  where(content_type: ctype)
+}
+ClassName.with_content_type('html')
+```
