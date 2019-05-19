@@ -252,3 +252,24 @@ scope :with_content_type, lambda{|ctype|
 }
 ClassName.with_content_type('html')
 ```
+
+## Relationship Types
+
+- One-to-one -> 1:1 - has one, belongs to (has a foreign key)
+- One-to-many -> 1:\* - has many, belongs to (has a foreign key)
+- Many-to-many -> \*:\* - has many and belongs to many (join tables have foreign keys)
+
+**ActiveRecord Associations**
+
+- One-to-one (unique items a person or thing can only have one of. ex. Employee has_one :office, break up a single table)
+  Classroom has_one :teacher
+  Teacher belongs_to :classroom
+
+- One-to-many (more commonly used than one-to-one, plural relationship names, return an array of objects)
+  Teacher has_many :courses
+  Course belongs_to :teacher
+  methods: subject.pages, subject.pages << page, subject.pages = [page, page, page], subject.pages.delete(page), subject.pages.destroy(page), subject.pages.clear, subject.pages.empty?, subject.pages.size
+
+- Many-to-many
+  Course has_and_belongs_to_many :students
+  Student has_and_belongs_to_many :courses
