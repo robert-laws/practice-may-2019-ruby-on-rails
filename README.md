@@ -8,13 +8,13 @@
 
 Browser interacts with the Controller, which will go to Model for data and return the results, which the Controller sends to the View prior to returning the results to the user and the browser
 
-### Routes
+## Routes
 
 Simple match route `get 'demo/index'` or `get 'demo/index', to: 'demo#index'`
 
 Root Route `root 'demo#index'`
 
-### Databases
+## Databases
 
 **Database** - set of tables
 example: simple_cms_development
@@ -122,3 +122,79 @@ remove_index(table, column)
 options:
 unique: true/false
 name: "custom_name"
+
+## ActiveRecord
+
+Rails implementation of the active record design pattern - retrieve data as objects that can be manipulated - read, created, updated, and deleted from database.
+
+```ruby
+user = User.new
+user.first_name = "Bob"
+user.save # SQL INSERT
+
+user.last_name = "Cobb"
+user.save # SQL UPDATE
+
+user.delete # SQL DELETE
+```
+
+ActiveRelation (ARel) - simplifies generation of complete database queries (joins, aggregations, etc.) and their execution.
+
+```ruby
+users = User.where(first_name: "Bob")
+users = users.order("last_name ASC").limit(5)
+
+# SELECT users.* FROM users
+# WHERE users.first_name = "Bob"
+# ORDER BY users.last_name ASC
+# LIMIT 5
+```
+
+`rails g model StoreItem`
+
+Will create a migration and an entry in the models folder called store_item (and class StoreItem) and a table in the database called store_items.
+
+ActiveRecord handles creating setter and getter methods for columns in the database. However, can still define attributes not included in database.
+
+### Using Rails Console
+
+`rails c`
+
+### Creating Records
+
+- New/save -> instantiate object, set values, then save to database
+- Create -> instantiate object, set values and save in one step
+
+```ruby
+subject = Subject.new({name: "First Subject", position: 1, visible: true})
+subject.save # saves record to database
+
+subject = Subject.create({name: "First Subject", position: 1, visible: true})
+# creates and saves in one step
+```
+
+### Updating Records
+
+- Find/save -> find record, set values, save
+- Find/update_attributes -> find record, set values and save at one time
+
+```ruby
+subject = Subject.find(1)
+subject.name = "Initial Subject"
+subject.save
+
+subject_two = Subject.find(2)
+subject_two.update_attributes({name: "Next Subject", visible: false})
+```
+
+### Deleting Records
+
+- Find/destroy -> Find record, destroy
+- using Delete -> will bypass steps and could be problematic
+
+```ruby
+problem_subject = Subject.create({name: "Bad Subject"})
+# ...
+subject = Subject.find(3)
+subject.destroy # removes from database, ruby object still remains as a frozen hash
+```
