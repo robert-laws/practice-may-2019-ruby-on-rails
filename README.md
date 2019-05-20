@@ -273,3 +273,27 @@ ClassName.with_content_type('html')
 - Many-to-many
   Course has_and_belongs_to_many :students
   Student has_and_belongs_to_many :courses
+
+### belongs_to validation
+
+Models that have a belongs_to relationship must have a parent to be successfully saved. It can be disabled using `{ optional: true }`
+
+### Many-to-many associations: simple
+
+Objects have many object that belong to it, but not exclusively. `BlogPost has_many_and_belongs_to :categories`
+
+Requires a join table with two foreign keys (with an index for quick lookup)
+
+No primary key column `(id: false)`
+
+Add same instances to class
+
+Join table naming convention: first_table + _ + second_table -> table names are plural and in alphabetical order ex. BlogPost & Category = `blog_post_categories`
+
+### Many-to-many associations: rich
+
+Allows more complexity - join table with more columns
+
+Requires a primary key on the join table
+
+Can use custom name for table - usually ends in -ment or -ships

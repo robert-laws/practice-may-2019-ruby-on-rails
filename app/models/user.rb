@@ -3,13 +3,9 @@ class User < ApplicationRecord
   # can also rename class and file to match AdminUser / admin_user.rb
   self.table_name = "admin_users"
 
-  attr_accessor :first_name
+  # join table association
+  has_and_belongs_to_many :pages
 
-  def last_name
-    @last_name
-  end
-
-  def last_name=(value)
-    @last_name = value
-  end
+  # rich join table association
+  has_many :section_edits
 end
