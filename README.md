@@ -288,7 +288,7 @@ No primary key column `(id: false)`
 
 Add same instances to class
 
-Join table naming convention: first_table + _ + second_table -> table names are plural and in alphabetical order ex. BlogPost & Category = `blog_post_categories`
+Join table naming convention: first*table + * + second_table -> table names are plural and in alphabetical order ex. BlogPost & Category = `blog_post_categories`
 
 ### Many-to-many associations: rich
 
@@ -297,3 +297,112 @@ Allows more complexity - join table with more columns
 Requires a primary key on the join table
 
 Can use custom name for table - usually ends in -ment or -ships
+
+## CRUD Actions
+
+- create (new - display new record form - /subjects/new, create - process new record form - /subjects/create)
+- read (index - list records - /subjects, show - display single record - /subjects/show/:id)
+- update - (edit - display edit record form - /subjects/edit/:id, update - process edit record form - /subjects/update/:id)
+- delete - (delete - display delete record form - /subjects/delete/:id, destroy - process delete record form - /subjects/destroy/:id)
+
+Use controllers to handle CRUD actions on model - one per model
+
+Allows for clear URLs
+
+`rails g controller Subjects index show new edit delete`
+
+### REST and resourceful routes
+
+- Representational State Transform
+- do not perform procedures
+- perform state transformation upon resources
+
+1. Organize code into resources - ex. one controller per model
+2. Learn HTTP verbs
+3. Map a new URL syntax to controller actions
+4. Modify existing links and forms to use new URL syntax
+
+### REST HTTP Verbs
+
+- GET - retrieve item from resource - used in links, allow multiple request, and cached
+- POST - create new item in resource
+- PATCH - update existing item in resource
+- DELETE - delete existing item in resource
+
+REST Verb Usage
+
+- index = GET
+- show = GET
+- new = GET
+- create = POST
+- edit = GET
+- update = PATCH
+- delete = GET
+- destroy = DELETE
+
+### Routes and URL Syntax
+
+- Rails default
+- Optimized for REST
+- simple and consistent
+
+`resources :subjects`
+
+- index - GET - /subjects
+- show - GET - /subjects/:id
+- new - GET - /subjects/new
+- create - POST - /subjects
+- edit - GET - /subjects/:id/edit
+- update - PATCH - /subjects/:id
+- delete - GET - /subjects/:id/delete
+- destroy - DELETE - /subjects/:id
+
+### Limiting Resourceful Routes
+
+`resources :admin_users, except: [:show]`
+`resources :products, only: [:index, :show]`
+
+Adding Resourceful Routes
+
+```ruby
+resources :subjects do
+  member do
+    get :delete
+  end
+
+  collection do
+    get :export
+  end
+end
+```
+
+example - adding delete verb to routes
+
+```ruby
+resources :authors do
+  member do
+    get :delete
+  end
+end
+```
+
+### Resourceful URL Helpers
+
+Helps to create shorthand versions of URLs
+
+`{controller: 'subjects', action: 'show', id: 5}` can be rewritten as `subject_path(5)`
+
+- index - GET - /subjects - subjects_path
+- show - GET - /subjects/:id - subject_path(:id)
+- new - GET - /subjects/new - new_subject_path
+- create - POST - /subjects - subjects_path
+- edit - GET - /subjects/:id/edit - edit_subject_path(:id)
+- update - PATCH - /subjects/:id - subject_path(:id)
+- delete - GET - /subjects/:id/delete - delete_subject_path(:id)
+- destroy - DELETE - /subjects/:id - subject_path(:id)
+
+`<%= link_to('All Subjects', subjects_path) %>`
+`<%= link_to('All Subjects', subjects_path(page: 3)) %>`
+`<%= link_to('Show Subject', subject_path(@subject.id)) %>`
+`<%= link_to('Show Subject', subject_path(@subject.id, format: 'verbose')) %>`
+`<%= link_to('Edit Subject', edit_subject_path(@subject.id)) %>`
