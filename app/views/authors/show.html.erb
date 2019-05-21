@@ -1,2 +1,14 @@
-<h1>Authors#show</h1>
-<p>Find me in app/views/authors/show.html.erb</p>
+<style>
+.red-link { color: red }
+</style>
+<h1>Author</h1>
+
+<%= link_to "Return to Authors List", authors_path, class: "red-link" %>
+
+<h4>Author Details</h4>
+<p>
+  Name: <%= @author.name %>
+</p>
+<p>
+  Age: <%= @author.age %>
+</p>
