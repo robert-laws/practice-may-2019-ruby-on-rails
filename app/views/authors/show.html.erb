@@ -1,3 +1,9 @@
+<% if !flash[:notice].blank? %>
+  <div class="notice">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
 <style>
 .red-link { color: red }
 </style>
@@ -5,10 +11,14 @@
 
 <%= link_to "Return to Authors List", authors_path, class: "red-link" %>
 
-<h4>Author Details</h4>
-<p>
-  Name: <%= @author.name %>
-</p>
+<h3>Author Details</h3>
+<h4>
+  <%= @author.name %>
+</h4>
 <p>
   Age: <%= @author.age %>
 </p>
+
+<hr>
+
+<%= link_to "Edit this Author", edit_author_path(@author) %>

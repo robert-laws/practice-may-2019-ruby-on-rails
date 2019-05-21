@@ -411,3 +411,88 @@ Helps to create shorthand versions of URLs
 `<%= link_to('Show Subject', subject_path(@subject.id, format: 'verbose')) %>`
 
 `<%= link_to('Edit Subject', edit_subject_path(@subject.id)) %>`
+
+## Forms
+
+Rails allows parameters to be used as a hash for post actions
+
+```ruby
+<%= form_for(@subject) do |f| %>
+  <%= f.text_field(:name) %>
+  <%= f.text_field(:position) %>
+  <%= f.text_field(:visible) %>
+
+  <%= f.submit("Create Subject")
+<% end %>
+```
+
+### New
+
+Uses new and create actions
+
+`<%= form_for(@author, url: authors_path, method: "post") do |f| %>`
+
+In the controller, the new method need an object to use for form creation. Can also add default values passing a hash to the new method on Author
+
+```ruby
+def new
+  @author = Author.new({age: 20})
+end
+```
+
+### Create
+
+Processes the form given from the new path - often with 4 steps
+
+1. instantiate a new object using form parameters
+2. save the object
+3. if save succeeds, redirect to the index page
+4. if save fails, re-display the form so the user can correct errors
+
+### Mass Assignment and Strong Parameters
+
+Mass Assignment - pass a hash of values to an object - used by new, create, and update actions
+
+Whitelisting = disallowing attributes to protect web sites - managed in the controller
+
+Strong Parameters = turned on by default
+
+```ruby
+def author_params
+
+end
+```
+
+### Edit/Update
+
+Need to retrieve an existing record first
+
+Update uses find and update_attributes to process its form, but applies the `update_attributes(@author)` method to update the database entry data
+
+### Delete and Destroy
+
+`<%= form_for(@author, url: author_path(@author), method: 'delete') do |f| %>`
+
+But can be written as: `<%= form_for(@author, method: 'delete') do |f| %>`
+
+### Flash Hash
+
+Display a message to the user would be helpful upon completing an action such as destroying a database record
+
+In HTML it's possible to keep track of things using cookies and sessions
+
+The Flash hash stores a message and clears old messages after every request (one redirect)
+
+Example: `flash[:notice] = "The subject was created successfully."`
+
+Example: `flash[:error] = "Not enough access privileges."`
+
+A good way to access the flash message is the following:
+
+```ruby
+<% if !flash[:notice].blank? %>
+  <div class="notice">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+```

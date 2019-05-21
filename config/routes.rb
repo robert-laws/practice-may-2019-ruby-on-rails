@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  ## root route -> home page for application
+  # root route -> home page for application
   root 'demo#index'
 
   resources :authors do
@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   # example: GET /students/edit/52 -> StudentsController, edit action, id = 52
   # get ':controller(/:action(/:id))'
 
-
+  resources :users, only: [:index, :show]
+  get '/register', to: "users#new", as: 'register'
 
   get 'demo/hello'
   get 'demo/other_hello'

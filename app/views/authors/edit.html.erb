@@ -1,2 +1,12 @@
-<h1>Authors#edit</h1>
-<p>Find me in app/views/authors/edit.html.erb</p>
+<h1>Edit the Author</h1>
+
+<%= form_for(@author) do |f| %>
+
+  <label for="name">Name:</label>
+  <%= f.text_field(:name) %>
+  <br>
+  <label for="age">Age:</label>
+  <%= f.text_field(:age) %>
+  <br>
+  <%= f.submit("Update Author") %>
+<% end %>

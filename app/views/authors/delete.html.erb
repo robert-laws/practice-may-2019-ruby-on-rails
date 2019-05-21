@@ -1,2 +1,26 @@
-<h1>Authors#delete</h1>
-<p>Find me in app/views/authors/delete.html.erb</p>
+<h1>The entry is about to be deleted</h1>
+
+<p>
+  <%= link_to "Return to Authors List", authors_path %>
+</p>
+
+<hr>
+
+<p>
+  <%= link_to "Return to Author Details", author_path(@author) %>
+</p>
+
+<hr>
+
+<%= form_for(@author, method: 'delete') do |f| %>
+
+  <p>Are you sure you want to delete this author?</p>
+
+  <p>
+    <%= f.object.name %>
+  </p>
+  <p>
+    <%= f.submit("Delete Author") %>
+  </p>
+
+<% end %>

@@ -1,12 +1,76 @@
+<% if !flash[:notice].blank? %>
+  <div class="notice">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+
 <style>
 .red-link { color: red }
+table {
+  border: 2px solid #CCC;
+}
+table td, table th {
+  padding: 10px;
+  border: 2px solid #CCC;
+}
+
+table td a {
+  text-decoration: none;
+}
+
+table td a:link, table td a:visited {
+  text-decoration: none;
+  color: blue;
+}
+
+table td a:hover, table td a:active {
+  color: crimson;
+}
 </style>
 <h1>Authors</h1>
 
-<ul>
+<!-- <ul>
   <% @authors.each do |author| %>
     <li>
       <%= author.name %> -- age: <%= author.age %> -- old person? <%= author.age.to_i > 35 ? "Yes" : "No" %> -- <%= link_to "View Author Details", author_path(author), class: "red-link" %>
     </li>
   <% end %>
-</ul>
+</ul> -->
+
+<%= link_to "Add New Author", new_author_path, class: "red-link" %>
+
+<hr>
+
+<table cellpadding=0 cellspacing=0>
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Old Person?</th>
+    <th>View Details</th>
+    <th>Make Changes</th>
+    <th>Remove Author</th>
+  </tr>
+  <% @authors.each do |author| %>
+    <tr>
+      <td>
+        <%= author.name %>
+      </td>
+      <td>
+        <%= author.age %>
+      </td>
+      <td>
+        <%= author.age.to_i > 35 ? "Yes" : "No" %>
+      </td>
+      <td>
+        <%= link_to "Show Author Details", author_path(author) %>
+      </td>
+      <td>
+        <%= link_to "Edit Author", edit_author_path(author) %>
+      </td>
+      <td>
+        <%= link_to "Delete Author", delete_author_path(author) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
