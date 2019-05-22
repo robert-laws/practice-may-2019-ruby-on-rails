@@ -1,2 +1,16 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<h1>Book Details</h1>
+
+<h4>
+  <%= @book.title %>
+</h4>
+<p>
+  Year: <%= @book.year %>
+</p>
+
+<p>
+  <%= link_to "Delete Book", delete_book_path(@book) %>
+</p>
+
+<hr>
+
+<%= link_to "Return to Books List", books_path %>

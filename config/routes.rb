@@ -8,7 +8,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :books, only: [:index, :show] 
+  resources :books
+
+  resources :books do
+    member do
+      get :delete
+    end
+  end
 
   ## simple match route
   get 'demo/', to: 'demo#index'

@@ -1,2 +1,12 @@
-<h1>Books#delete</h1>
-<p>Find me in app/views/books/delete.html.erb</p>
+<h1>Delete Book</h1>
+
+<%= form_for(@book, method: 'delete') do |f| %>
+  <p>Are you sure you want to delete this author?</p>
+
+  <p>
+    <%= f.object.title %>
+  </p>
+  <p>
+    <%= f.submit("Delete Book") %>
+  </p>
+<% end %>
