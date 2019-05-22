@@ -377,7 +377,7 @@ resources :subjects do
 end
 ```
 
-example - adding delete verb to routes
+example - adding delete verb to routes and including all other resources too.
 
 ```ruby
 resources :authors do
@@ -496,3 +496,21 @@ A good way to access the flash message is the following:
   </div>
 <% end %>
 ```
+
+## Layouts
+
+Template content appears within a layout including the `<%= yield %>` keyword.
+
+Additional layouts can be defined in the `views/layouts` directory.
+
+Can place repeatable code in a layout.
+
+Instance variables can be defined in a template and are available to the layouts: `<% @page_title = "All Subjects Available" %>`
+
+## Partials
+
+For code that is repeated, a partial can hold the common code and make it available to a template
+
+Partials are indicated with an underscore `_form.html.erb`
+
+Referencing a partial that needs to have access to a parameter uses the locals field `<%= render partial: "form", locals: {f: f} %>`

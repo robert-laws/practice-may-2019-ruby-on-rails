@@ -1,0 +1,19 @@
+<h1>Subject Details</h1>
+
+<h4>
+  <%= @subject.name %>
+</h4>
+<p>
+  Position: <%= @subject.position %>
+</p>
+<p>
+  Visible: <%= @subject.visible %>
+</p>
+
+<p>
+  <%= link_to "Delete Subject", delete_subject_path(@subject) %>
+</p>
+
+<hr>
+
+<%= link_to "Return to Subjects List", subjects_path %>

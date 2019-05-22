@@ -2,6 +2,12 @@ Rails.application.routes.draw do
   # root route -> home page for application
   root 'demo#index'
 
+  resources :subjects do
+    member do
+      get :delete
+    end
+  end
+
   resources :authors do
     member do
       get :delete

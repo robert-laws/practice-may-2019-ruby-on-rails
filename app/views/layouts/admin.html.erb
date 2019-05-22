@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple CMS: <%= @page_title || "Admin Area" %></title>
+  </head>
+  <body>
+    <h1>Administration</h1>
+
+    <% if !flash[:notice].blank? %>
+      <div>
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
+    <!-- before yield -->
+  
+    <%= yield %>
+
+    <!-- after yield -->
+
+  </body>
+</html>
