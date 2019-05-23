@@ -580,5 +580,93 @@ number_to_human_size(1234567, precision: 2) # 1.2 MB
 ```
 
 ```ruby
-number_to_phone(1234567890, area_code: true, delimiter: ' ', country_code: 1, extension: '321') # +1 (123) 456 7890 x 321
+number_to_phone(1234567890, area_code: true, delimiter: ' ', country_code: 1, extension: '321')
+# +1 (123) 456 7890 x 321
 ```
+
+## Date & Time Helpers
+
+Available throughout Rails
+
+Can use keywords in intuitive ways to indicate time concepts. Available keywords are: second, minute, hour, day, week, month, year.
+
+```ruby
+Time.now + 30.days - 23.minutes
+
+Time.now - 30.days 
+# same as
+30.days.ago
+
+Time.now + 30.days
+# same as
+30.days.from_now
+```
+
+**Relative DateTime Calculations**
+
+beginning_of_day
+beginning_of_week
+beginning_of_month
+beginning_of_year
+yesterday
+last_week
+last_month
+last_year
+end_of_day
+end_of_week
+end_of_month
+end_of_year
+tomorrow
+next_week
+next_month
+next_year
+
+**Formatting**
+
+datetime.strftime(format_string)
+
+```ruby
+Time.now.strftime("%B %d, %Y %H:%M")
+# "May 23, 2019 14:05"
+```
+
+Ruby DateTime formatting
+
+Day
+%a - abbreviated weekday name - Sun
+%A - full weekday name - Sunday
+
+Date
+%d - day of the month (01..31)
+
+Month
+%b - abbreviated month name - Jan
+%B - full month name - January
+%m - month of the year (01..12)
+
+Year
+%y - year without century - (00..99)
+%Y - year with century - ex. 2019
+
+Time
+%H - hour of the day; 24-hour clock (00..23)
+%I - hour of the day; 12-hour clock (01..12)
+%M - minute of the hour - (00..59)
+%S - second of the minute - (00..60)
+%p - meridian indicator (AM or PM)
+%Z - time zone name
+
+In Rails - DateTime formatting
+
+`datetime.to_s(format_symbol)`
+
+`Time.now.to_s(:long)`
+
+DateTime Default Formats
+
+:db - 2019-05-23 14:13:00
+:number - 20190523141310
+:time - 14:13
+:short - 23 May 14:13
+:long - May 23, 2019 14:13
+:long_ordinal - May 23rd, 2019 14:13
