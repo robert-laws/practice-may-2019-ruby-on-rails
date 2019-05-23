@@ -514,3 +514,71 @@ For code that is repeated, a partial can hold the common code and make it availa
 Partials are indicated with an underscore `_form.html.erb`
 
 Referencing a partial that needs to have access to a parameter uses the locals field `<%= render partial: "form", locals: {f: f} %>`
+
+## Text Helpers
+
+- word_wrap - used with long text `<%= word_wrap(text, line_width: 30) %>` - will only work in HTML in the  `pre` tag.
+
+- simple_format - will respect line breaks using the `\n` new line and wrap text in paragraph tags `<%= simple_format(text) %>`
+
+- truncate - breaks text at a specified length `<% truncate(text, length: 28) %>`
+
+- pluralize - will apply plurals to text dynamically 
+
+```ruby
+<% [0, 1, 2].each do |n| %>
+  <%= pluralize(n, 'product') %>
+<% end %>
+```
+
+Other useful text helpers include:
+
+- truncate_words
+- highlight
+- excerpt
+
+## Number Helpers
+
+- number_to_currency
+- number_to_percentage
+- number_with_precision / number_to_rounded (alias for number_with_precision)
+- number_with_delimited / number_to_delimited (alias for number_with_delimited)
+- number_to_human
+- number_to_human_size
+- number_to_phone
+
+Pattern used
+
+- :delimited - delimits thousands (default ',')
+- :separator - decimal separator (default '.')
+- :precision - decimal places to show (default varies 2-3)
+
+```ruby
+number_to_currency(34.5, precision: 0, unit: "kr", format: "%n %u") # 35 kr
+```
+
+```ruby
+number_to_percentage(34.5, precision: 1, separator: ',') # 34,5%
+```
+
+```ruby
+number_with_precision(34.56789, precision: 6) # 34.567890
+number_to_rounded(34.56789, precision: 6) # 34.567890
+```
+
+```ruby
+number_with_delimiter(3456789, delimiter: ' ') # 3 456 789
+number_to_delimited(3456789, delimiter: ' ') # 3 456 789
+```
+
+```ruby
+number_to_human(123456789, precision: 5) # 123.46 Million
+```
+
+```ruby
+number_to_human_size(1234567, precision: 2) # 1.2 MB
+```
+
+```ruby
+number_to_phone(1234567890, area_code: true, delimiter: ' ', country_code: 1, extension: '321') # +1 (123) 456 7890 x 321
+```

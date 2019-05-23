@@ -40,6 +40,14 @@ table td a:hover, table td a:active {
 
 <%= link_to "Add New Author", new_author_path, class: "red-link" %>
 
+<p>
+  <%= number_to_currency(34.5, precision: 0, unit: "kr", format: "%n %u") %>
+</p>
+
+<p>
+  <%= number_to_phone(1234567890, area_code: true, delimiter: '-') %>
+</p>
+
 <hr>
 
 <table cellpadding=0 cellspacing=0>
