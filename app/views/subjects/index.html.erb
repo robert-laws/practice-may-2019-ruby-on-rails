@@ -5,7 +5,7 @@
 <ul>
   <% @subjects.each do |subject| %>
     <li>
-      <%= link_to subject.name, subject_path(subject) %> - <%= subject.position %> - <%= link_to "Edit subject", edit_subject_path(subject) %>
+      <%= link_to subject.name, subject_path(subject) %> - <%= subject.position %> - <%= status_tag(subject.visible, { true_text: "X", false_text: "!" } ) %> - <%= link_to "Edit subject", edit_subject_path(subject) %>
     </li>
   <% end %>
 </ul>

@@ -517,13 +517,13 @@ Referencing a partial that needs to have access to a parameter uses the locals f
 
 ## Text Helpers
 
-- word_wrap - used with long text `<%= word_wrap(text, line_width: 30) %>` - will only work in HTML in the  `pre` tag.
+- word_wrap - used with long text `<%= word_wrap(text, line_width: 30) %>` - will only work in HTML in the `pre` tag.
 
 - simple_format - will respect line breaks using the `\n` new line and wrap text in paragraph tags `<%= simple_format(text) %>`
 
 - truncate - breaks text at a specified length `<% truncate(text, length: 28) %>`
 
-- pluralize - will apply plurals to text dynamically 
+- pluralize - will apply plurals to text dynamically
 
 ```ruby
 <% [0, 1, 2].each do |n| %>
@@ -593,7 +593,7 @@ Can use keywords in intuitive ways to indicate time concepts. Available keywords
 ```ruby
 Time.now + 30.days - 23.minutes
 
-Time.now - 30.days 
+Time.now - 30.days
 # same as
 30.days.ago
 
@@ -670,3 +670,53 @@ DateTime Default Formats
 :short - 23 May 14:13
 :long - May 23, 2019 14:13
 :long_ordinal - May 23rd, 2019 14:13
+
+## Custom Helpers
+
+Best used for
+
+- code that will be used repeatedly
+- storing complex code so it doesn't occupy large parts of the controller
+- writing Ruby code - without adding any html, etc.
+
+Once defined, they can be called in the views.
+
+## Sanitization Helpers
+
+Prevent things like cross-site scripting (XSS)
+
+Data could be potentially unsafe that comes from
+
+- URL parameters
+- form parameters
+- cookie data
+- database data
+
+**Default Behavior**
+
+Corrected by escaping HTML using html entities for the opening and closing brackets `< >` which makes them text instead of code.
+
+To use the string as html, use `raw()` to render it as code or `.html_safe`
+
+```ruby
+<% good_string = "<strong>Welcome to the website!</strong>" %>
+
+<%= raw good_string %>
+
+<%= good_string.html_safe %>
+```
+
+Other useful methods include `.strip_links(text)` to remove hyperlink code and `strip_tags(text)` to remove all html tags.
+
+Sanitize function - defines tags and attributes that are allowed and removes all others.
+
+```ruby
+sanitize(html, options)
+
+# permitted tags are p, br, strong, and em
+# permitted attributes are id, class, and style
+sanitize(@subject.content,
+  tags: ["p", "br", "strong", "em"],
+  attributes: ["id", "class", "style"]
+)
+```

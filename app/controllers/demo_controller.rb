@@ -25,4 +25,8 @@ class DemoController < ApplicationController
     # redirect to an external url
     redirect_to 'https://www.lynda.com'
   end
+
+  def escape_output
+    
+  end
 end

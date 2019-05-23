@@ -1,0 +1,22 @@
+<% evil_string = "<script>alert('Gotcha!);</script>" %>
+<% good_string = "<strong>Welcome to the website!</strong>" %>
+<% alt_string = "<em><strong>Important Text... </strong></em>" %>
+<% extra_string = "<strong><em>Hello, <br>everyone!</em></strong>" %>
+
+<%= evil_string %>
+<br>
+<%= raw good_string %>
+<br>
+<%= alt_string.html_safe %>
+
+<hr>
+
+<%= good_string %>
+<br>
+<%= alt_string.html_safe %>
+<br>
+<%= strip_tags(extra_string) %>
+<br>
+<%= sanitize extra_string, tags: %w(strong em a), attributes: %w(href) %>
+<br>
+<%= sanitize ActionController::Base.helpers.sanitize(extra_string, :tags => ['br'])%>
