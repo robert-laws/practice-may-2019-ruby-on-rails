@@ -1,5 +1,15 @@
 <h1>Hello from Demo</h1>
 
+<h2 id="demo">Welcome....</h2>
+
+<hr>
+
+<div id='cover-div'></div>
+
+<%= link_to "Click to Greet", "#", onclick: "sayHello('#{@greeting}'); return false;", class: "red-link" %>
+
+<hr>
+
 <%= link_to("Visit the hello page", { action: 'hello' }) %>
 
 <hr>
@@ -13,3 +23,7 @@
 <% @id_values.each do |id| %>
   <%= link_to("Link # #{id}", { action: 'hello', page: id }) %><br>
 <% end %>
+
+<%= image_tag 'ch1.jpg', width: 400, height: 400, alt: 'Chillhop Album Cover', class: 'demo-image' %>
+
+<%#= javascript_tag "alert('...#{j(@greeting)}')"; %>

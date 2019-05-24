@@ -778,3 +778,77 @@ To add a separate CSS file, create a new manifest ex. `admin.css` and define the
 Next, verify rails will precompile the files. In `config/initializers/assets.rb`.
 
 Then add `Rails.application.config.assets.precompile += %w( admin.css )` with the admin.css defined and restart the server.
+
+### Javascript Steps
+
+1. write javascript file
+2. list JS file in manifest
+3. add manifest to asset pipeline
+4. include a JS tag in HTML
+
+kept in `/app/assets/javascripts/` or without asset pipeline `/public/javascripts`
+
+#### JQuery
+
+- included by default
+- have to enable jquery-rails gem in Gemfile
+- include in manifest file
+
+Use the helper `<%= javascript_include_tag 'application' %>` to output the script tag.
+
+Link: [JQuery UI Rails](https://github.com/jquery-ui-rails/jquery-ui-rails)
+
+### Javascript Helpers
+
+`<%= javascript_tag("alert('How are you?');") %>`
+
+```ruby
+<%= javascript_tag do %>
+  alert('Howdy there...');
+<% end %>
+```
+
+will output CDATA tags
+
+```javascript
+<script>
+//<![CDATA[
+  alert('Howdy there...');
+//]]>
+</script>
+```
+
+It's possible to use values from Ruby in Javascript Text
+
+`<%= javascript_tag "alert('...#{@greeting}')"; %>`
+
+### Sanitizing Javascript
+
+helper method  `escape_javascript()` or `j()` to sanitize javascript.
+
+`<%= javascript_tag "alert('...#{escape_javascript(text)}')"; %>`
+`<%= javascript_tag "alert('...#{j(text)}')"; %>`
+
+example for `@greeting = ...Howdy '' everyone!!`
+result: `//<![CDATA[alert('...Howdy \'\' everyone!!')//]]>`
+
+### Images
+
+kept in `/app/assets/images/` or without asset pipeline `/public/images`
+
+Two types of images:
+
+1. core application should go into assets
+2. user images (uploads) - public/images
+
+Gems to help with uploading images: `Paperclip` and `CarrierWave`
+
+#### Image Helper
+
+`<%= image_tag('logo.png') %>`
+
+`<%= image_tag 'logo.png', size: '90x55', alt: 'logo' %>`
+
+`<%= image_tag 'logo.png', width: 90, height: 50, alt: 'logo' %>`
+
+To use images within the CSS file reference a image file using **image-url** instead of just url: `background: $color-green image-url('/assets/ch1.jpg') no-repeat 0 0;`

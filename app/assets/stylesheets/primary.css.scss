@@ -1,3 +1,20 @@
+$color-green: #1DA231;
+
 body {
   background-color: lighten(lightgray, 15%);
+}
+
+.red-link {
+  color: red;
+}
+
+.demo-image {
+  border: 5px solid #555;
+}
+
+#cover-div {
+  width: 200px;
+  height: 200px;
+  background: $color-green image-url('/assets/ch1.jpg') no-repeat 0 0;
+  margin: 10px;
 }

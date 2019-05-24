@@ -1,9 +1,10 @@
 class DemoController < ApplicationController
 
-  layout false
+  layout 'application'
 
   def index
     @id_values = [1, 2, 3, 4, 5]
+    @greeting = "Howdy '' everyone!!"
   end
 
   def hello
