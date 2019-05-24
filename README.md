@@ -259,7 +259,7 @@ ClassName.with_content_type('html')
 - One-to-many -> 1:\* - has many, belongs to (has a foreign key)
 - Many-to-many -> \*:\* - has many and belongs to many (join tables have foreign keys)
 
-**ActiveRecord Associations**
+### ActiveRecord Associations
 
 - One-to-one (unique items a person or thing can only have one of. ex. Employee has_one :office, break up a single table)
   Classroom has_one :teacher
@@ -288,7 +288,7 @@ No primary key column `(id: false)`
 
 Add same instances to class
 
-Join table naming convention: first*table + * + second_table -> table names are plural and in alphabetical order ex. BlogPost & Category = `blog_post_categories`
+Join table naming convention: `first_table + _*_ + second_table -> table names` are plural and in alphabetical order ex. BlogPost & Category = `blog_post_categories`
 
 ### Many-to-many associations: rich
 
@@ -602,7 +602,7 @@ Time.now + 30.days
 30.days.from_now
 ```
 
-**Relative DateTime Calculations**
+### Relative DateTime Calculations
 
 beginning_of_day
 beginning_of_week
@@ -621,7 +621,7 @@ next_week
 next_month
 next_year
 
-**Formatting**
+### Formatting
 
 datetime.strftime(format_string)
 
@@ -692,7 +692,7 @@ Data could be potentially unsafe that comes from
 - cookie data
 - database data
 
-**Default Behavior**
+### Default Behavior
 
 Corrected by escaping HTML using html entities for the opening and closing brackets `< >` which makes them text instead of code.
 
@@ -720,3 +720,61 @@ sanitize(@subject.content,
   attributes: ["id", "class", "style"]
 )
 ```
+
+## Asset Pipline
+
+- concatenates CSS and JS files into single files
+- compresses and minifies CSS and JS
+- precompiles CSS and JS
+- allows writing in other languages - ex. Sass
+- adds asset fingerprint (forces browser to get a fresh copy of files)
+- manifest files - contain directives for including asset files
+
+Location
+
+```ruby
+app/assets/images
+app/assets/javascripts
+app/assets/stylesheets
+```
+
+Development vs Production
+
+- in development skips concatenation, compression, fingerprinting
+- in development - processing is done
+- in production - does not do any processing, assumes assets have been precompiled
+- this is done with the steps 1) `export RAILS_ENV=production`, and `bundle exec rails assets:precompile`
+
+### Stylesheets Steps
+
+1. write stylesheets
+2. list stylesheets in manifest
+3. add manifest to asset precompile list
+4. include a stylesheet link tag in HTML
+
+location: `/app/assets/stylesheets` or without asset pipeline `/public/stylesheets`
+
+### Manifest file
+
+located in application.css, or admin.css (shown below)
+
+```css
+/*
+ * require_tree .
+ *= require primary
+ *= require admin_additions
+ *= require_self
+ */
+ ```
+
+`*= require_tree .` means to include all files within current directory
+
+`*= require_self` means that styles within manifest file gets processed, not recommended place to put styles
+
+`*= require primary` means that the file named primary should be included as part of the manifest
+
+To add a separate CSS file, create a new manifest ex. `admin.css` and define the manifest - add `require admin_additions` to include this file as well.
+
+Next, verify rails will precompile the files. In `config/initializers/assets.rb`.
+
+Then add `Rails.application.config.assets.precompile += %w( admin.css )` with the admin.css defined and restart the server.

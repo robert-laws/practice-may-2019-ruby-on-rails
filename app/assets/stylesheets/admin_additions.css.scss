@@ -1,0 +1,6 @@
+$color-green: #1DA231;
+$color-blue: lightblue;
+
+span.status { display: inline-block; width: 10px; height: 10px; margin: 0.25em auto; padding: 0; border: 1px solid #000000; }
+span.status.true { background: $color-green; color: black }
+span.status.false { background: $color-blue; color: black }
