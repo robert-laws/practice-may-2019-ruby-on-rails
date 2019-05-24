@@ -31,7 +31,7 @@ class BooksController < ApplicationController
 
     if @book.update_attributes(book_params)
       flash[:notice] = "New Book updated to the database"
-      redirect_to books_path
+      redirect_to book_path(@book)
     else
       render 'edit'
     end
@@ -52,6 +52,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :year, :author_id)
+    params.require(:book).permit(:title, :year, :author_id, :book_type)
   end
 end

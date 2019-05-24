@@ -3,8 +3,21 @@
 <h4>
   <%= @book.title %>
 </h4>
+
+<p>
+  Author: <%= @book.author.name %>
+</p>
+
 <p>
   Year: <%= @book.year %>
+</p>
+
+<p>
+  Type: <%= @book.book_type %>
+</p>
+
+<p>
+  <%= link_to "Edit this Book", edit_book_path(@book) %>
 </p>
 
 <p>

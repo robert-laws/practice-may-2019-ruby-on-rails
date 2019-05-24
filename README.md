@@ -765,7 +765,7 @@ located in application.css, or admin.css (shown below)
  *= require admin_additions
  *= require_self
  */
- ```
+```
 
 `*= require_tree .` means to include all files within current directory
 
@@ -824,7 +824,7 @@ It's possible to use values from Ruby in Javascript Text
 
 ### Sanitizing Javascript
 
-helper method  `escape_javascript()` or `j()` to sanitize javascript.
+helper method `escape_javascript()` or `j()` to sanitize javascript.
 
 `<%= javascript_tag "alert('...#{escape_javascript(text)}')"; %>`
 `<%= javascript_tag "alert('...#{j(text)}')"; %>`
@@ -852,3 +852,76 @@ Gems to help with uploading images: `Paperclip` and `CarrierWave`
 `<%= image_tag 'logo.png', width: 90, height: 50, alt: 'logo' %>`
 
 To use images within the CSS file reference a image file using **image-url** instead of just url: `background: $color-green image-url('/assets/ch1.jpg') no-repeat 0 0;`
+
+## Form Helpers
+
+Creating form fields can be done several different ways
+
+Tag Style `<%= text_field_tag name, params[:name] %>` - used for things like search box not connected to object
+
+Object Aware Style `<%= text_field :subject, :name %>` - knows about the object
+
+Form Tag Style `<%= f.text_field :name %>` - form builder, saves some extra typing
+
+Other Helpers
+
+- text_field
+- password_field
+- text_area
+- hidden_field
+- radio_button
+- check_box
+- file_field
+- label
+
+```ruby
+<%= form_for(@subject, html: { multipart: true }) do |f| %>
+  <%= f.hidden_field token: 'abcdef12345' %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, size: 40, maxlength: 40 %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password, size: 40 %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, size: "40x5" %> # :cols/:rows
+
+  <%= f.label :content_type %>
+  <%= f.radio_button :content_type, "text" %>
+  <%= f.radio_button :content_type, "HTML" %>
+
+  <%= f.label :visible %>
+  <%= f.check_box :visible %>
+
+  <%= f.label :logo %>
+  <%= f.file_field :logo %> # requires multipart: true
+<% end %>
+```
+
+### Form Helper - Select
+
+`<%= f.select(object, attribute, choices, options, html_options) %>`
+
+options:
+selected: object.attribute
+include_blank: false
+prompt: false
+disabled: false
+
+```ruby
+<%= form_for(@section) do |f| %>
+  # Range
+  <%= f.select :position, 1..5 %>
+
+  # Array
+  <%= f.select :content_type, ['text', 'HTML', 'other'] %>
+
+  # Hash
+  <%= f.select :visible, { "Visible" => 1, "Hidden" => 2} %>
+
+  # Array of arrays
+  <%= f.select :page_id, Page.all.map {|p| [p.name, p.id]} %>
+
+<% end %>
+```

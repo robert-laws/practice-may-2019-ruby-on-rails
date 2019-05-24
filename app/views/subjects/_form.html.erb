@@ -1,9 +1,9 @@
-  <label for="name">Name:</label>
+  <%= f.label :name %>
   <%= f.text_field(:name) %>
   <br>
-  <label for="position">Position:</label>
+  <%= f.label :position %>
   <%= f.text_field(:position) %>
   <br>
-  <label for="visible">Visible:</label>
-  <%= f.text_field(:visible) %>
+  <%= f.label :visible %>
+  <%= f.check_box(:visible) %>
   <br>

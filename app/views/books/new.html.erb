@@ -1,14 +1,8 @@
 <h1>Add a New Book</h1>
 
 <%= form_for(@book) do |f| %>
-  <label for="title">Title:</label>
-  <%= f.text_field(:title) %>
-  <br>
-  <label for="year">Year:</label>
-  <%= f.text_field(:year) %>
-  <br>
-  <label for="author_id">Author ID:</label>
-  <%= f.text_field(:author_id) %>
-  <br>
+
+  <%= render partial: "form", locals: {f: f} %>
+
   <%= f.submit("Create Book") %>
 <% end %>
