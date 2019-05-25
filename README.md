@@ -1219,3 +1219,9 @@ New controller to handle authentication - AccessController
 access_attempt_login POST /access/attempt_login(.:format) access#attempt_login
        access_logout GET  /access/logout(.:format)        access#logout
 ```
+
+### Restricting Access for certain pages
+
+In AccessController - `before_action :confirm_logged_in, except: [:login, :attempt_login, :logout]`
+
+Works only for content within AccessController
