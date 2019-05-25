@@ -721,7 +721,7 @@ sanitize(@subject.content,
 )
 ```
 
-## Asset Pipline
+## Asset Pipeline
 
 - concatenates CSS and JS files into single files
 - compresses and minifies CSS and JS
@@ -974,3 +974,88 @@ Javascript and Ajax
 - need to have a CSRF token added to page
 
 `<%= csrf_meta_tag %>`
+
+## Validation Methods
+
+Ensures that data meets requirements before saving to the database
+
+Validations are located in the model
+
+ActiveRecord::Validations
+
+Failed validations will not save and track errors
+
+### Individual Validation Methods
+
+- validates_presence_of :name - makes sure attribute isn't blank (nil, false, "", " ", [], {})
+- validates_length_of :name, maximum: 30 - attribute must meet length requirements (:wrong_length, :too_short, :too_long) ex. too_long: "is too long (max is {{count}} characters)"
+- validates_numericality_of :age - attribute is a number (:equal_to, :greater_than, :less_than, etc.)
+- validates_inclusion_of :choice - attribute is within a list of choices
+- validates_exclusion_of :choice - attribute is not within list of choices
+- validates_format_of :choice, with: - attribute must match a regular expression
+- validates_uniqueness_of :username - (can be scoped) attribute must not exist in the database, ex. username is unique
+- validates_acceptance_of - attribute must be accepted, ex. checkbox for terms of service
+- validates_confirmation_of - user typed data correctly, user must type it in a second time with a virtual attribute
+- validates_associated - validates data of associated objects to be valid. First argument is association name, not attribute, calls #valid? on the object
+
+:allow_nil => true
+:allow_blank => true
+
+:on => :save / :create / :update
+:if => :method / :unless => :method
+
+### Shorthand for Validation Methods
+
+Validations can be written separately
+
+```ruby
+validate_presence_of :email
+validates_length_of :email, maximum: 100
+validates_format_of :email, with: EMAIL_REGEX
+validates_confirmation_of :email
+```
+
+Or using a shorthand
+
+```ruby
+validates :email, presence: true, length: { maximum: 50 }, uniqueness: true, format: { with: EMAIL_REGEX }, confirmation: true
+```
+
+Full Options for Shorthand Validations
+
+```ruby
+validates :attribute,
+  presence: boolean,
+  numericality: boolean,
+  length: options_hash,
+  format: { with: regex },
+  inclusion: { in: array_of_range },
+  exclusion: { in: array_of_range },
+  acceptance: boolean,
+  uniqueness: boolean,
+  confirmation: boolean
+```
+
+### Custom Validations
+
+Placed in the model. Can validate against an attribute or be separated and an error at the base level.
+
+```ruby
+validate :custom_method
+validate :no_new_authors_on_saturday, on: :create
+
+private
+
+def custom_method
+  if test_case
+    errors.add(:attribute, "message")
+  end
+end
+
+def no_new_authors_on_saturday
+  if Time.now.wday == 6
+    errors.add(:base, "No new users on Saturday.")
+  end
+end
+```
+
