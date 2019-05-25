@@ -1,5 +1,9 @@
 <h1>Delete Book</h1>
 
+<p>
+  If you delete, there will only be <%= pluralize(@book_count, "book") %> remaining.
+</p>
+
 <%= form_for(@book, method: 'delete') do |f| %>
   <p>Are you sure you want to delete this author?</p>
 

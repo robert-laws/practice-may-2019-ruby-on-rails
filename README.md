@@ -1058,3 +1058,121 @@ def no_new_authors_on_saturday
   end
 end
 ```
+
+## Controller Features
+
+## Cookies
+
+The internet is stateless. However, cookies allow preservation of state
+
+`cookies[:username] = "jsmith"`
+
+```ruby
+cookies[:username] = {
+  value: "jsmith",
+  expires: 1.week.from_now
+}
+```
+
+#### Limitations
+
+- maximum data size, 4k (~ 4000 characters)
+- reside on user's computer
+- user can control there - delete, etc.
+
+#### Best practices
+
+- use cookies to preserve state and save time
+- store only small pieces of data
+- do not store model instances
+- do not store sensitive data
+- do not trust cookie data
+
+## Sessions
+
+workflow:
+
+- web serve sends a session id to browser, which is saved in a cookie
+- browser sends session id with each future request to web server
+- web server uses session id to local session file
+
+`session[:username] = "jsmith"`
+
+`<%= session[:username] %>`
+
+#### Limitations
+
+- requires time to retrieve the session file
+- session files accumulate on server
+- session cookie resides on user's computer
+- session cookie can be deleted or hijacked
+
+### Session Storage
+
+- file storage
+- database storage
+- cookie storage (default)
+  - super cookies
+  - fast; no lookup needed
+  - no setup required
+  - no file or database bloat
+  - data is encrypted to prevent reading
+  - signed to prevent tampering
+  - still limited to 4k size
+
+## Controller Filters
+
+- Execute code before or after a controller action
+- Filter requests before allowing actions
+- remove code repetition
+- perform "housekeeping" tasks
+
+- common usage - confirm user authentication
+- set variables and default values
+- find database objects
+- get shopping cart
+
+Filter names
+
+before_action
+after_action
+around_action
+
+```ruby
+class PagesController < ApplicationController
+  before_action :find_subjects
+
+  private
+
+  def find_subjects
+    @subjects = Subject.sorted
+  end
+end
+```
+
+All controller actions will have access to instance variable before any actions called
+
+- filter methods should be declared "private"
+- any render or redirect will prevent its execution
+- specify with actions activate with filter
+
+`only: [:method1, :method2]`
+
+`except: [:method1]`
+
+Filters in ApplicationController will be inherited by all controllers
+inherited filters can be skipped
+
+skip_before_action
+skip_after_action
+skip_around_action
+
+## Logging - Application Logs
+
+logs information about activity in app.
+
+Different levels of logging - :debug, :info, :warn, :error, :fatal
+
+Logging files are located in `log/development` or `log/test` or `log/production` for each environment
+
+User added log entry inside of rails: `logger.debug("**\* Testing the logger. \***)`

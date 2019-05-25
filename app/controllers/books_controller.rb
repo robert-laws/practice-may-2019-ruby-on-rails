@@ -1,5 +1,9 @@
 class BooksController < ApplicationController
+  before_action :find_authors, only: [:new, :create, :edit, :update]
+  before_action :set_book_count, only: [:index, :delete]
+
   def index
+    # logger.debug("**_ Testing the logger. _***")
     @books = Book.all
   end
 
@@ -53,5 +57,16 @@ class BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(:title, :year, :author_id, :book_type)
+  end
+
+  def find_authors
+    @authors = Author.sorted
+  end
+
+  def set_book_count
+    @book_count = Book.all.size
+    if params[:action] == 'delete'
+      @book_count -= 1
+    end
   end
 end
