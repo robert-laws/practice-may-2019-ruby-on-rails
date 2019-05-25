@@ -20,6 +20,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :site_users do
+    member do
+      get :delete
+    end
+  end
+
   ## simple match route
   get 'demo/', to: 'demo#index'
   get 'demo/index', to: 'demo#index'

@@ -1058,4 +1058,3 @@ def no_new_authors_on_saturday
   end
 end
 ```
-

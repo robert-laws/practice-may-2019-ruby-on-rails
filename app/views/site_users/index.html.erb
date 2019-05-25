@@ -1,0 +1,16 @@
+<h1>All Site Users</h1>
+
+<section>
+  <% @site_users.each do |site_user| %>
+    <article>
+      <h4><%= link_to site_user.username, site_user_path(site_user) %></h4>
+      <p>First Name: <%= site_user.first_name %></p>
+      <p>Last Name: <%= site_user.last_name %></p>
+    </article>
+    <hr>
+  <% end %>
+</section>
+
+<section>
+  <%= link_to "Add New Site User", new_site_user_path %>
+</section>

@@ -1,0 +1,27 @@
+  <div>
+    <%= error_messages_for(f.object) %>
+  </div>
+
+  <div>
+    <%= f.label :first_name %>:
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name %>:
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= f.label :username %>:
+    <%= f.text_field :username %>
+  </div>
+
+  <div>
+    <%= f.label "Password" %>
+    <%= f.password_field :hashed_password %>
+  </div>
+
+  <div>
+    <%= f.submit submit_text %>
+  </div>

@@ -1,0 +1,5 @@
+<h1>Add a New User</h1>
+
+<%= form_for @site_user do |f| %>
+  <%= render partial: "form", locals: { f: f, submit_text: "Create a New Site User" } %>
+<% end %>

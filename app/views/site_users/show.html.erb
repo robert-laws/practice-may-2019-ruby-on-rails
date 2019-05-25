@@ -1,0 +1,25 @@
+<h1>Site User Details</h1>
+
+<h4>
+  <%= @site_user.username %>
+</h4>
+
+<p>
+  First Name: <%= @site_user.first_name %>
+</p>
+
+<p>
+  Last Name: <%= @site_user.last_name %>
+</p>
+
+<hr>
+
+<section>
+  <%= link_to "Edit Site User Details", edit_site_user_path(@site_user) %>
+</section>
+
+<hr>
+
+<section>
+  <%= link_to "Delete Site User", delete_site_user_path(@site_user) %>
+</section>
