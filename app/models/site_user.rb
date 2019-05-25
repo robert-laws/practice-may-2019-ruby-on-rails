@@ -1,4 +1,6 @@
 class SiteUser < ApplicationRecord
+  has_secure_password
+
   scope :sorted, -> { order(username: :asc) }
   
   # validations
@@ -11,8 +13,4 @@ class SiteUser < ApplicationRecord
   validates_presence_of :username
   validates_length_of :username, maximum: 30
   validates_uniqueness_of :username
-
-  # validates_presence_of :hashed_password
-  # validates_length_of :hashed_password, maximum: 30
-
 end

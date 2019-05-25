@@ -1176,3 +1176,46 @@ Different levels of logging - :debug, :info, :warn, :error, :fatal
 Logging files are located in `log/development` or `log/test` or `log/production` for each environment
 
 User added log entry inside of rails: `logger.debug("**\* Testing the logger. \***)`
+
+## Authentication
+
+Password protected areas are common and it's important to do it properly
+
+- user visits page and logs in
+- user is marked as authenticated
+- user can request other password-protected pages
+- log out
+
+Workflow
+
+- passwords will be encrypted
+- user logs in with username and password - matched with encrypted password
+- sets session variable to user id and redirects
+- session data available with each request, checked with `before_action`
+- logout - sets session to Null
+
+### Secure Passwords
+
+`has_secure_password` is used in rails applications
+
+need to have `bcrypt` gem is installed
+table must have a column in database called `password_digest` in string
+
+New controller to handle authentication - AccessController
+
+```ruby
+  get 'admin', to: 'access#menu'
+  get 'access/menu'
+  get 'login', to: 'access#login', as: 'login'
+  post 'access/attempt_login'
+  get 'access/logout'
+```
+
+```ruby
+              Prefix Verb URI Pattern                     Controller#Action
+               admin GET  /admin(.:format)                access#menu
+         access_menu GET  /access/menu(.:format)          access#menu
+               login GET  /login(.:format)                access#login
+access_attempt_login POST /access/attempt_login(.:format) access#attempt_login
+       access_logout GET  /access/logout(.:format)        access#logout
+```

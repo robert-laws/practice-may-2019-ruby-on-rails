@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_25_092423) do
+ActiveRecord::Schema.define(version: 2019_05_25_142431) do
 
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.string "first_name", limit: 25
@@ -82,9 +82,9 @@ ActiveRecord::Schema.define(version: 2019_05_25_092423) do
     t.string "first_name"
     t.string "last_name"
     t.string "username", limit: 30
-    t.string "hashed_password", limit: 30
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
   end
 
   create_table "store_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|

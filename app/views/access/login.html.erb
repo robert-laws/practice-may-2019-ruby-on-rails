@@ -1,0 +1,17 @@
+<% @page_title = "Site Users Login" %>
+
+<div>
+  <%= form_tag(access_attempt_login_path, method: :post) do %>
+    <p>
+      <%= label_tag :username %>: 
+      <%= text_field_tag :username, params[:username] %>
+    </p>
+    <p>
+      <%= label_tag :password %>: 
+      <%= password_field_tag :password %>
+    </p>
+    <p>
+      <%= submit_tag "Log In" %>
+    </p>
+  <% end %>
+</div>

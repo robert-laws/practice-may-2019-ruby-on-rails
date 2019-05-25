@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+  skip_before_action :confirm_logged_in
+
   before_action :find_authors, only: [:new, :create, :edit, :update]
   before_action :set_book_count, only: [:index, :delete]
 

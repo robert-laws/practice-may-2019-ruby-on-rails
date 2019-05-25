@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   # root route -> home page for application
   root 'demo#index'
+  
+  get 'admin', to: 'access#menu'
+  get 'access/menu'
+  get 'login', to: 'access#login', as: 'login'
+  post 'access/attempt_login'
+  get 'access/logout'
+
 
   resources :subjects do
     member do
