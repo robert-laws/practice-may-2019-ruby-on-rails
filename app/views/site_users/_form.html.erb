@@ -19,7 +19,12 @@
 
   <div>
     <%= f.label "Password" %>
-    <%= f.password_field :hashed_password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label "Confirm Password" %>
+    <%= f.password_field :password_confirmation %>
   </div>
 
   <div>

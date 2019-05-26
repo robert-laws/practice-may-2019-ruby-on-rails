@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   post 'access/attempt_login'
   get 'access/logout'
 
-
   resources :subjects do
     member do
       get :delete
@@ -27,7 +26,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :site_users do
+  resources :site_users, except: [:show] do
     member do
       get :delete
     end

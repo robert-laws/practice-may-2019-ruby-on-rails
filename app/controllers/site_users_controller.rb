@@ -3,7 +3,7 @@ class SiteUsersController < ApplicationController
   layout 'admin'
 
   def index
-    @site_users = SiteUser.all
+    @site_users = SiteUser.sorted
   end
 
   def show
@@ -19,7 +19,7 @@ class SiteUsersController < ApplicationController
 
     if @site_user.save
       flash[:notice] = "New site user has been created."
-      redirect_to site_user_path(@site_user)
+      redirect_to site_users_path
     else
       render 'new'
     end
@@ -34,7 +34,7 @@ class SiteUsersController < ApplicationController
 
     if @site_user.update_attributes(site_user_params)
       flash[:notice] = "The site user has been updated."
-      redirect_to site_user_path(@site_user)
+      redirect_to site_users_path
     else
       render 'edit'
     end
@@ -55,6 +55,6 @@ class SiteUsersController < ApplicationController
   private
 
   def site_user_params
-    params.require(:site_user).permit(:first_name, :last_name, :username, :hashed_password)
+    params.require(:site_user).permit(:first_name, :last_name, :username, :password, :password_confirmation)
   end
 end

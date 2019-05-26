@@ -3,9 +3,11 @@
 <section>
   <% @site_users.each do |site_user| %>
     <article>
-      <h4><%= link_to site_user.username, site_user_path(site_user) %></h4>
+      <h4><%= site_user.name %></h4>
+      <p>Username: <strong><%= site_user.username %></strong></p>
       <p>First Name: <%= site_user.first_name %></p>
       <p>Last Name: <%= site_user.last_name %></p>
+      <p><%= link_to "Edit User", edit_site_user_path(site_user) %></p>
     </article>
     <hr>
   <% end %>
